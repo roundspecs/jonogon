@@ -4,3 +4,4 @@ torch
 transformers
 langchain
 langchain-ollama
+six
