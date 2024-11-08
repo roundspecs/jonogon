@@ -6,8 +6,20 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -45,17 +57,17 @@ public class Jonogon {
     @Nonnull
     @CollectionTable(name = "skills", joinColumns = @JoinColumn(name = "jonogon_id"))
     private Set<String> skills;
-    
+
     @JsonIgnore
     @OneToMany(mappedBy = "author")
     private List<Initiative> initiatives;
 
-    // @JsonIgnore
-    // @ManyToMany(mappedBy = "appreciators")
-    // private Set<Initiative> appreciatedInitiatives;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "appreciators")
+    private Set<Initiative> appreciatedInitiatives;
 
-    // @JsonIgnore
-    // @ManyToMany(mappedBy = "iAmInJonogons")
-    // private Set<Initiative> iAmInitiatives;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "iAmInJonogons")
+    private Set<Initiative> iAmInitiatives;
 
 }

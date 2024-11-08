@@ -1,6 +1,7 @@
 package com.example.backend;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,8 @@ public class BackendApplication implements CommandLineRunner {
 		}
 
 		Initiative[] initiatives = new Initiative[] {
-			new Initiative("Learn Java", LocalDate.now(), "Learn Java from scratch", 0, 0, 0, "image", jonogons[0], "asdf", "asdf", "asdf"),
+				new Initiative("Learn Java", LocalDate.now(), "Learn Java from scratch", 0, 0, 0, "image", jonogons[0],
+						Set.of(jonogons[0]), Set.of(jonogons[0]), "asdf", "asdf", "asdf"),
 		};
 
 		for (Initiative initiative : initiatives) {

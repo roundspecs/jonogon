@@ -61,16 +61,17 @@ public class Initiative {
     @JoinColumn(name = "jonogon_id", referencedColumnName = "id", nullable = false)
     private Jonogon author;
 
-    // @NonNull
-    // @JsonIgnore
-    // @ManyToMany()
-    // @JoinTable(name = "jonogon_appreciated_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
-    // private Set<Jonogon> appreciators;
+    @NonNull
+    @JsonIgnore
+    @ManyToMany()
+    @JoinTable(name = "jonogon_appreciated_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
+    private Set<Jonogon> appreciators;
 
-    // @JsonIgnore
-    // @ManyToMany()
-    // @JoinTable(name = "jonogon_i_am_in_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
-    // private Set<Jonogon> iAmInJonogons;
+    @NonNull
+    @JsonIgnore
+    @ManyToMany()
+    @JoinTable(name = "jonogon_i_am_in_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
+    private Set<Jonogon> iAmInJonogons;
 
     @Nonnull
     @Column(name = "location_district")
