@@ -61,17 +61,23 @@ public class InitiativeController {
 
     // post
     @PostMapping("{initiativeId}/iAmIn/{jonogonId}")
-    public ResponseEntity<Integer> appricateCount(@PathVariable Long initiativeId) {
-        return new ResponseEntity<>(initiativeService.appreciateCount(initiativeId), HttpStatus.OK);
+    public ResponseEntity<HttpStatus> iAmIn(@PathVariable Long initiativeId, @PathVariable Long jonogonId) {
+        initiativeService.iAmInBy(initiativeId, jonogonId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // get
     @GetMapping("{initiativeId}/iAmIn/{jonogonId}")
-    public ResponseEntity<Integer> iAmInCount(@PathVariable Long initiativeId) {
-        return new ResponseEntity<>(initiativeService.iAmInCount(initiativeId), HttpStatus.OK);
+    public ResponseEntity<Boolean> didIAmIn(@PathVariable Long initiativeId, @PathVariable Long jonogonId) {
+        return new ResponseEntity<>(initiativeService.didIAmIn(initiativeId, jonogonId), HttpStatus.OK);
     }
 
     @GetMapping("{initiativeId}/iAmIn/count")
+    public ResponseEntity<Integer> iAmInCount(@PathVariable Long initiativeId) {
+          return new ResponseEntity<>(initiativeService.iAmInCount(initiativeId), HttpStatus.OK);
+    }
+
+    @GetMapping("{initiativeId}/comment/count")
     public ResponseEntity<Integer> commmentCount(@PathVariable Long initiativeId) {
         return new ResponseEntity<>(initiativeService.commentCount(initiativeId), HttpStatus.OK);
     }

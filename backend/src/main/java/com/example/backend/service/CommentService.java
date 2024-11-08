@@ -9,7 +9,6 @@ import com.example.backend.repository.CommentRepository;
 public class CommentService {
     
     @Autowired
-
     private CommentRepository commentRepository;
 
 }

@@ -63,19 +63,25 @@ public class InitiativeService {
         return initiative.getAppreciators().contains(jonogon);
     }
 
+    public Boolean didIAmIn(Long initiativeId, Long jonogonId) {
+        Initiative initiative = initiativeRepository.findById(initiativeId).get();
+        Jonogon jonogon = jonogonService.findById(jonogonId);
+        return initiative.getIAmInJonogons().contains(jonogon);
+    }
+
     public Set<Comment> findAllComment(Long initiativeId) {
         Initiative initiative = initiativeRepository.findById(initiativeId).get();
         return initiative.getComments();
     }
 
-    public Long iAmInCount(Long initiativeId) {
+    public Integer iAmInCount(Long initiativeId) {
         Initiative initiative = initiativeRepository.findById(initiativeId).get();
-        return (long) initiative.getIAmInJonogons().size();
+        return initiative.getIAmInJonogons().size();
     }
 
-    public Long commentCount(Long initiativeId) {
+    public Integer commentCount(Long initiativeId) {
         Initiative initiative = initiativeRepository.findById(initiativeId).get();
-        return (long) initiative.getComments().size();
+        return initiative.getComments().size();
     }
 
 }
