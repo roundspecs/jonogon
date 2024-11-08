@@ -1,5 +1,6 @@
 package com.example.backend.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,7 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -55,20 +56,16 @@ public class Jonogon {
     @Nonnull
     @CollectionTable(name = "skills", joinColumns = @JoinColumn(name = "jonogon_id"))
     private Set<String> skills;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "jonogon")
+    private List<Initiative> initiatives;
 
     @JsonIgnore
-    @JoinTable(name = "jonogon_taken_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
-    @OneToMany(mappedBy = "jonogon", cascade = CascadeType.ALL)
-    private Set<Initiative> initiativesTaken;
+    @ManyToMany(mappedBy = "appreciators")
+    private Set<Initiative> appreciatedInitiatives;
 
-    @JsonIgnore
-    @JoinTable(name = "jonogon_appriciate_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
-    @OneToMany(mappedBy = "jonogon", cascade = CascadeType.ALL)
-    private Set<Initiative> initiativesAppricatived;
-
-    @JsonIgnore
-    @JoinTable(name = "jonogon_iAmIn_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
-    @OneToMany(mappedBy = "jonogon", cascade = CascadeType.ALL)
-    private Set<Initiative> initiativesIAmIn;
+    @ManyToMany(mappedBy = "iAmInJonogons")
+    private Set<Initiative> iAmInitiatives;
 
 }
