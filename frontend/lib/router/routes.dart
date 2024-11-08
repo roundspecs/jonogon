@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/community/presentation/pages/community_page.dart';
+import 'package:frontend/features/sign_up/sign_up.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter router = GoRouter(
