@@ -17,45 +17,54 @@ class SignUpPage extends StatelessWidget {
           child: Column(
             children: [
               const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Username',
-                ),
+              decoration: InputDecoration(
+                labelText: 'Username',
+                border: OutlineInputBorder(),
               ),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Full Name',
-                ),
               ),
+              const SizedBox(height: 10),
               const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Mobile Number',
-                ),
-                keyboardType: TextInputType.phone,
+              decoration: InputDecoration(
+                labelText: 'Full Name',
+                border: OutlineInputBorder(),
               ),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                ),
-                obscureText: true,
               ),
+              const SizedBox(height: 10),
               const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Confirm Password',
-                ),
-                obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Mobile Number',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.phone,
+              ),
+              const SizedBox(height: 10),
+              const TextField(
+              decoration: InputDecoration(
+                labelText: 'Password',
+                border: OutlineInputBorder(),
+              ),
+              obscureText: true,
+              ),
+              const SizedBox(height: 10),
+              const TextField(
+              decoration: InputDecoration(
+                labelText: 'Confirm Password',
+                border: OutlineInputBorder(),
+              ),
+              obscureText: true,
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  context.go("/");
-                },
-                child: const Text('Sign Up'),
+              onPressed: () {
+                context.go("/");
+              },
+              child: const Text('Sign Up'),
               ),
               TextButton(
-                onPressed: () {
-                  context.go('/login');
-                },
-                child: const Text('Already have an account? Sign In'),
+              onPressed: () {
+                context.go('/login');
+              },
+              child: const Text('Already have an account? Sign In'),
               ),
             ],
           ),

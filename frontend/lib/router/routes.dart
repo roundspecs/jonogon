@@ -6,7 +6,7 @@ import 'package:frontend/features/take_initiative/presentation/pages/take_initia
 import 'package:go_router/go_router.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/login',
   routes: <RouteBase>[
     GoRoute(
       path: '/login',

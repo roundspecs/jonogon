@@ -120,21 +120,21 @@ class InitiativeApi {
     }
   }
 
-  static Future<void> postAnInitiative(
-    InitiativeApiModel initiative,
-    int jonogonId,
-  ) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/initiative/jonogon/$jonogonId'),
-      body: jsonEncode(initiative.toJson()),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
-    if (response.statusCode != 201) {
-      throw Exception('Failed to assign a jonogon to an initiative');
-    }
-  }
+  // static Future<void> postAnInitiative(
+  //   InitiativeApiModel initiative,
+  //   int jonogonId,
+  // ) async {
+  //   final response = await http.post(
+  //     Uri.parse('$baseUrl/initiative/jonogon/$jonogonId'),
+  //     body: jsonEncode(initiative.toJson()),
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //     },
+  //   );
+  //   if (response.statusCode != 201) {
+  //     throw Exception('Failed to assign a jonogon to an initiative');
+  //   }
+  // }
 
   // static Future<void> postJonogonAppreciatesInitiative(
   //   int idI,
