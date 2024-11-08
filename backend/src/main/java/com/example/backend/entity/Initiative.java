@@ -1,89 +1,72 @@
 package com.example.backend.entity;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.annotation.Nonnull;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.*;
 
+@Entity
+@Table(name = "initiative")
 @Getter
 @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
-@Entity
-@Table(name = "initiative")
+
 public class Initiative {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Nonnull
-    @Column(name = "description")
-    private String decscription;
+    @NonNull
+    @Column(name = "description", nullable = false)
+    private String description;
 
-    @Nonnull
-    @Column(name = "created_at")
-    private LocalDate createdAt;
-
-    @Nonnull
-    @Column(name = "solution", length = 1000)
+    @NonNull
+    @Column(name = "solution", nullable = false)
     private String solution;
+
+    @NonNull
+    @Column(name = "createdAt", nullable = false)
+    private LocalDate createdAt;
    
-    @OneToMany(mappedBy = "initiative")
-    private List<Step> steps;
-   
-    @Nonnull
-    @Column(name = "appricate_count")
-    private Integer appriciateCount;
-
-    @Nonnull
-    @Column(name = "i_am_in_count")
-    private Integer iAmInCount;
-
-    @Nonnull
-    @Column(name = "comment_count")
-    private Integer commentCount;
-
-    @Nonnull
-    @Column(name = "image_url", length = 1000)
-    private String imageUrl;
-
-    // @JsonIgnore
-    // @OneToMany(mappedBy = "initiative")
-    // private Set<Comment> comments;
-
+    @NonNull
+    @Column(name = "initiativePictureUrl", length = 1000)
+    private String initiativePictureUrl;
+    
     @NonNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "jonogon_id", referencedColumnName = "id", nullable = false)
-    private Jonogon author;
+    private Jonogon jonogon;
 
-    @NonNull
     @JsonIgnore
     @ManyToMany()
     @JoinTable(name = "jonogon_appreciated_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
     private Set<Jonogon> appreciators;
 
-    @NonNull
     @JsonIgnore
     @ManyToMany()
-    @JoinTable(name = "jonogon_i_am_in_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
+    @JoinTable(name = "jonogon_iAmIn_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
     private Set<Jonogon> iAmInJonogons;
 
-    @Nonnull
-    @Column(name = "location_district")
-    private String locationDistrict;
+    @JsonIgnore
+    @OneToMany(mappedBy = "initiative")
+    private Set<Comment> comments;
 
-    @Nonnull
-    @Column(name = "location_upzilla")
-    private String locationUpzilla;
-
-    @Nonnull
-    @Column(name = "location_address")
-    private String locationAddress;
-
+    @OneToMany(mappedBy = "initiative")
+    private Set<Step> steps;
 }
