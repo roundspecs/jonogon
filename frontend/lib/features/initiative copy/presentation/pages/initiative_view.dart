@@ -29,15 +29,14 @@ class InitiativeView extends StatelessWidget {
                   CircleAvatar(
                     radius: 24,
                     backgroundColor: Colors.grey[300],
-                    child:
-                        Icon(Icons.person, size: 30, color: Colors.grey[600]),
+                    backgroundImage: NetworkImage(initiative.author.imageURL),
                   ),
                   const SizedBox(width: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Firstname Lastname',
+                        'Saifullah Saimun',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -54,19 +53,19 @@ class InitiativeView extends StatelessWidget {
               const SizedBox(height: 16),
               // Image Container
               Image.network(initiative.imageURL),
-              const SizedBox(height: 16),
-              // Details
-              const Text(
-                '''Full details of the post go here. This section can be expanded to include additional information.''',
-                style: TextStyle(fontSize: 14),
-              ),
-              const SizedBox(height: 16),
-              // Solution Section
+              const SizedBox(height: 8),
               const Text(
                 'Solution',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
+              // Details
+              Text(
+                initiative.solution,
+                style: const TextStyle(fontSize: 14),
+              ),
+              const SizedBox(height: 16),
+              // Solution Section
               const Text(
                 'Details about the solution and step-by-step guide.',
                 style: TextStyle(fontSize: 14),

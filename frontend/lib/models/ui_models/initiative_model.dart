@@ -17,8 +17,7 @@ class InitiativeModel extends Equatable {
     required int idJ,
   }) {
     return InitiativeModel(
-      imageURL:
-          'https://i0.wp.com/picjumbo.com/wp-content/uploads/pile-of-garbage-in-the-middle-of-the-city-free-photo.jpg?w=2210&quality=70',
+      imageURL: model.imageURL,
       createdAt: model.createdAt,
       author: model.jonogon!,
       id: model.id.toString(),

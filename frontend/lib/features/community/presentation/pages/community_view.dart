@@ -34,14 +34,6 @@ class CommunityView extends StatelessWidget {
             ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          // print(
-          //   await JonogonApi.findJonogonById(1),
-          // );
-        },
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }
