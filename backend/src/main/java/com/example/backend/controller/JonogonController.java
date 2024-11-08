@@ -23,13 +23,21 @@ public class JonogonController {
     @Autowired
     private JonogonService jonogonService;
 
-    @Autowired
-    private InitiativeService initiativeService;
+    @PostMapping
+    public ResponseEntity<Jonogon> save(@RequestBody Jonogon jonogon) {
+        return new ResponseEntity<>(jonogonService.saveJonogon(jonogon), HttpStatus.CREATED);
+    }
 
-    @PostMapping("{id}")
-    public Initiative save(@PathVariable Long id, @RequestBody Initiative initiative) {
-        initiative.setJonogon(jonogonService.findById(id));
-        return initiativeService.save(initiative);
+    // @GetMapping("/search/{query}")
+    // public ResponseEntity<List<Jonogon>> searchJonogons(@PathVariable String
+    // query) {
+    // return new ResponseEntity<>(jonogonService.searchJonogons(query),
+    // HttpStatus.OK);
+    // }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Jonogon>> getAll() {
+        return new ResponseEntity<>(jonogonService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -37,16 +45,19 @@ public class JonogonController {
         return new ResponseEntity<>(jonogonService.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Jonogon>> getAll() {
-        return new ResponseEntity<>(jonogonService.findAll(), HttpStatus.OK);
+    @GetMapping("/{id}/initiativesTaken")
+    public ResponseEntity<List<Initiative>> initiativesTaken(@PathVariable Long id) {
+        return new ResponseEntity<List<Initiative>>(jonogonService.initiativesTaken(id), HttpStatus.OK);
     }
 
-    // @GetMapping("{id}/initiativesTaken")
-    // public ResponseEntity<List<Initiative>> initiativesTaken(@PathVariable Long
-    // id) {
-    // return new ResponseEntity<>(jonogonService.initiativesTaken(id),
-    // HttpStatus.OK);// Complete this method
-    // }
+    @GetMapping("{id}/initiativesAppreciated")
+    public ResponseEntity<List<Initiative>> initiativesAppreciated(@PathVariable Long id) {
+        return new ResponseEntity<List<Initiative>>(jonogonService.initiativesAppreciated(id), HttpStatus.OK);
+    }
+
+    @GetMapping("{id}/initiativesIAmIn")
+    public ResponseEntity<List<Initiative>> initiativesIAmIn(@PathVariable Long id) {
+        return new ResponseEntity<List<Initiative>>(jonogonService.initiativesIAmIn(id), HttpStatus.OK);
+    }
 
 }
