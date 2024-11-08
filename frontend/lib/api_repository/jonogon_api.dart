@@ -1,57 +1,55 @@
-import 'package:equatable/equatable.dart';
-import 'package:intl/intl.dart';
+import 'dart:convert';
+import 'package:frontend/models/api_models/initiative_api_model.dart';
+import 'package:frontend/models/api_models/jonogon_api_model.dart';
+import 'package:http/http.dart' as http;
 
-class JonogonApiModel extends Equatable {
-  const JonogonApiModel({
-    required this.id,
-    required this.username,
-    required this.fullname,
-    required this.phoneNumber,
-    required this.userSince,
-    required this.profilePictureURL,
-    required this.password,
-  });
+class JonogonApi {
+  static const String baseUrl = 'http://localhost:8080';
 
-  factory JonogonApiModel.fromJson(Map<String, dynamic> json) {
-    assert(json['password'] != null, 'Password is required');
-    return JonogonApiModel(
-      id: json['id'] as int,
-      username: json['username'] as String,
-      fullname: json['fullname'] as String,
-      phoneNumber: json['phoneNumber'] as String,
-      userSince: DateTime.parse(json['userSince'] as String),
-      profilePictureURL: json['profilePictureURL'] as String,
-      password: json['password'] as String,
+  static Future<List<JonogonApiModel>> findAllJonogon() async {
+    final response = await http.get(Uri.parse('$baseUrl/jonogon/all'));
+    if (response.statusCode == 200) {
+      final data =
+          (jsonDecode(response.body) as List).cast<Map<String, dynamic>>();
+      return data.map(JonogonApiModel.fromJson).toList();
+    } else {
+      throw Exception('Failed to load jonogons');
+    }
+  }
+
+  static Future<JonogonApiModel> findJonogonById(int id) async {
+    final response = await http.get(Uri.parse('$baseUrl/jonogon/$id'));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      return JonogonApiModel.fromJson(data);
+    } else {
+      throw Exception('Failed to load jonogon $id');
+    }
+  }
+
+  static Future<List<InitiativeApiModel>> getAllInitiativesOfJonogonById(
+      int id) async {
+    final response =
+        await http.get(Uri.parse('$baseUrl/jonogon/$id' '/initiative/all'));
+    if (response.statusCode == 200) {
+      final data =
+          (json.decode(response.body) as List).cast<Map<String, dynamic>>();
+      return data.map<InitiativeApiModel>(InitiativeApiModel.fromJson).toList();
+    } else {
+      throw Exception('Failed to load initiatives of jonogon $id');
+    }
+  }
+
+  static Future<void> postAJonogon(JonogonApiModel jonogon) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/jonogon'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(jonogon.toJson()),
     );
+    if (response.statusCode != 201) {
+      throw Exception('Failed to post a jonogon');
+    }
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'username': username,
-      'fullname': fullname,
-      'phoneNumber': phoneNumber,
-      'userSince': DateFormat('yyyy-MM-dd').format(userSince),
-      'profilePictureURL': profilePictureURL,
-      'password': password,
-    };
-  }
-
-  final int id;
-  final String username;
-  final String fullname;
-  final String phoneNumber;
-  final DateTime userSince;
-  final String profilePictureURL;
-  final String? password;
-
-  @override
-  List<Object?> get props => [
-        id,
-        username,
-        fullname,
-        phoneNumber,
-        userSince,
-        profilePictureURL,
-        password,
-      ];
 }
