@@ -4,12 +4,12 @@ import 'package:frontend/features/profile/bloc/profile_bloc.dart';
 import 'package:frontend/features/profile/presentation/profile_view.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-
+  const ProfilePage({super.key, required this.idJ});
+  final int idJ;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProfileBloc(),
+      create: (context) => ProfileBloc()..add(ProfileInitEvent(id: idJ)),
       child: const ProfileView(),
     );
   }
