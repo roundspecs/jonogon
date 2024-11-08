@@ -13,6 +13,6 @@ class InitiativeEventsLoad extends InitiativeEvent {
   final int idJ;
   
   @override
-  List<Object> get props => [idI];
+  List<Object> get props => [idI, idJ];
 }
 

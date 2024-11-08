@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'package:frontend/api_repository/initiative_api.dart';
+
 import 'package:frontend/models/api_models/initiative_api_model.dart';
-import 'package:frontend/models/ui_models/initiative_model.dart';
 import 'package:http/http.dart' as http;
 
 class InitiativeApi {
@@ -28,13 +27,43 @@ class InitiativeApi {
     }
   }
 
-  static Future<int> getCountOfInitiativesById(int id) async {
+  // static Future<int> getCountOfInitiativesById(int id) async {
+  //   final response = await http
+  //       .get(Uri.parse('$baseUrl/initiative/$id' '/appreciate/count'));
+  //   if (response.statusCode == 200) {
+  //     return int.parse(response.body);
+  //   } else {
+  //     throw Exception('Failed to load count of initiative $id');
+  //   }
+  // }
+
+  static Future<int> getCountOfAppreciateById(int id) async {
     final response = await http
         .get(Uri.parse('$baseUrl/initiative/$id' '/appreciate/count'));
     if (response.statusCode == 200) {
       return int.parse(response.body);
     } else {
-      throw Exception('Failed to load count of initiative $id');
+      throw Exception('Failed to load count of appreciate of initiative $id');
+    }
+  }
+
+  static Future<int> getCountOfCommentById(int id) async {
+    final response =
+        await http.get(Uri.parse('$baseUrl/initiative/$id' '/comment/count'));
+    if (response.statusCode == 200) {
+      return int.parse(response.body);
+    } else {
+      throw Exception('Failed to load count of comments of initiative $id');
+    }
+  }
+
+  static Future<int> getCountOfIAmInById(int id) async {
+    final response =
+        await http.get(Uri.parse('$baseUrl/initiative/$id' '/iAmIn/count'));
+    if (response.statusCode == 200) {
+      return int.parse(response.body);
+    } else {
+      throw Exception('Failed to load count of iAmIn of initiative $id');
     }
   }
 
@@ -50,8 +79,21 @@ class InitiativeApi {
     }
   }
 
-  static Future <List<String>> getAllCommentsOfInitiativeById (int idI) async {
-    final response = await http.get(Uri.parse('$baseUrl/initiative/$idI/comments'));
+  static Future<bool> isInitiateIAmInByJonogon(int idI, int idJ) async {
+    final response =
+        await http.get(Uri.parse('$baseUrl/initiative/$idI' '/iAmIn/$idJ'));
+    if (response.statusCode == 200) {
+      return json.decode(response.body).toString().toLowerCase() == 'true';
+    } else {
+      throw Exception(
+        'Failed to check if Initiative $idI is appreciated by Jonogon $idJ',
+      );
+    }
+  }
+
+  static Future<List<String>> getAllCommentsOfInitiativeById(int idI) async {
+    final response =
+        await http.get(Uri.parse('$baseUrl/initiative/$idI/comment/all'));
     if (response.statusCode == 200) {
       final data = (json.decode(response.body) as List).cast<String>();
       return data;
@@ -69,19 +111,12 @@ class InitiativeApi {
     }
   }
 
-  static Future<void> postInitiativeToAJonogon(
-      int id,
-      InitiativeApiModel initiative,
-    ) async {
+  static Future<void> postAnInitiativeIAmIn(int idI, int idJ) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/initiative/jonogon/$id'),
-      body: jsonEncode(InitiativeModel.toJson()),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
+      Uri.parse('$baseUrl/initiative/$idI' '/iAmIn/$idJ'),
     );
     if (response.statusCode != 200) {
-      throw Exception('Failed to post an initiative to a jonogon');
+      throw Exception('Failed to post an initiative appreciation');
     }
   }
 
@@ -97,19 +132,19 @@ class InitiativeApi {
       },
     );
     if (response.statusCode != 201) {
-      throw Exception('Failed to post an initiative');
+      throw Exception('Failed to assign a jonogon to an initiative');
     }
   }
 
-  static Future<void> postJonogonAppreciatesInitiative(
-    int idI,
-    int idJ,
-  ) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/initiative/$idI' '/appreciate/$idJ'),
-    );
-    if (response.statusCode != 201) {
-      throw Exception('Failed to post jonogon appreciates initiative');
-    }
-  }
+  // static Future<void> postJonogonAppreciatesInitiative(
+  //   int idI,
+  //   int idJ,
+  // ) async {
+  //   final response = await http.post(
+  //     Uri.parse('$baseUrl/initiative/$idI' '/appreciate/$idJ'),
+  //   );
+  //   if (response.statusCode != 201) {
+  //     throw Exception('Failed to post jonogon appreciates initiative');
+  //   }
+  // }
 }

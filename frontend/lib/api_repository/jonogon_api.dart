@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:frontend/models/api_models/initiative_api_model.dart';
 import 'package:frontend/models/api_models/jonogon_api_model.dart';
 import 'package:http/http.dart' as http;
@@ -40,6 +41,32 @@ class JonogonApi {
     }
   }
 
+  static Future<List<InitiativeApiModel>> getAllInitiativesIAmInOfJonogonById(
+      int id) async {
+    final response =
+        await http.get(Uri.parse('$baseUrl/jonogon/$id' '/initiativesIAmIn'));
+    if (response.statusCode == 200) {
+      final data =
+          (json.decode(response.body) as List).cast<Map<String, dynamic>>();
+      return data.map<InitiativeApiModel>(InitiativeApiModel.fromJson).toList();
+    } else {
+      throw Exception('Failed to load initiatives jonogon $id is in');
+    }
+  }
+
+  static Future<List<InitiativeApiModel>>
+      getAllInitiativesAppreciatedByJonogonById(int id) async {
+    final response = await http
+        .get(Uri.parse('$baseUrl/jonogon/$id' '/initiativesAppreciated'));
+    if (response.statusCode == 200) {
+      final data =
+          (json.decode(response.body) as List).cast<Map<String, dynamic>>();
+      return data.map<InitiativeApiModel>(InitiativeApiModel.fromJson).toList();
+    } else {
+      throw Exception('Failed to load initiatives jonogon $id is in');
+    }
+  }
+
   static Future<void> postAJonogon(JonogonApiModel jonogon) async {
     final response = await http.post(
       Uri.parse('$baseUrl/jonogon'),
@@ -48,7 +75,8 @@ class JonogonApi {
       },
       body: jsonEncode(jonogon.toJson()),
     );
-    if (response.statusCode != 201) {
+    if (response.statusCode != 200) {
+      //Might change it to 201 later
       throw Exception('Failed to post a jonogon');
     }
   }
