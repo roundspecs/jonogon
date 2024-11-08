@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import com.example.backend.entity.Jonogon;
 import com.example.backend.repository.JonogonRepository;
 
-
-
 @Service
 public class JonogonService {
 
@@ -25,15 +23,12 @@ public class JonogonService {
     }
 
     // public List<Initiative> initiativesTaken(Long jonogonId) {
-             
-    //     return (List<Initiative>) jonogonRepository.findAllByJonogon(jonogonId);
+
+    // return (List<Initiative>) jonogonRepository.findAllByJonogon(jonogonId);
     // }
 
-    public Jonogon saveJonogon(Jonogon jonogon) {
-             return jonogonRepository.save(jonogon);
+    public Jonogon save(Jonogon jonogon) {
+        return jonogonRepository.save(jonogon);
     }
-
-    
-    
 
 }

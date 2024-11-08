@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.entity.Initiative;
 import com.example.backend.entity.Jonogon;
-import com.example.backend.service.InitiativeService;
+// import com.example.backend.service.InitiativeService;
 import com.example.backend.service.JonogonService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,13 +23,12 @@ public class JonogonController {
     @Autowired
     private JonogonService jonogonService;
 
-    @Autowired
-    private InitiativeService initiativeService;
+    // @Autowired
+    // private InitiativeService initiativeService;
 
-    @PostMapping("{id}")
-    public Initiative save(@PathVariable Long id, @RequestBody Initiative initiative) {
-        initiative.setJonogon(jonogonService.findById(id));
-        return initiativeService.save(initiative);
+    @PostMapping
+    public ResponseEntity<Jonogon> save(@RequestBody Jonogon jonogon) {
+        return new ResponseEntity<>(jonogonService.save(jonogon), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

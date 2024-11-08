@@ -33,52 +33,55 @@ public class Initiative {
     @Column(name = "solution", length = 1000)
     private String solution;
    
-    @OneToMany(mappedBy = "initiative")
-    private Set<Step> steps;
+    // @OneToMany(mappedBy = "initiative")
+    // private Set<Step> steps;
    
     @Nonnull
-    @Column(name = "appricateCount")
-    private Long appriciateCount;
+    @Column(name = "appricate_count")
+    private Integer appriciateCount;
 
     @Nonnull
-    @Column(name = "iAmInCount")
-    private Long iAmInCount;
+    @Column(name = "i_am_in_count")
+    private Integer iAmInCount;
 
     @Nonnull
-    @Column(name = "commentCount")
-    private Long commentCount;
+    @Column(name = "comment_count")
+    private Integer commentCount;
 
     @Nonnull
-    @Column(name = "imageURL", length = 1000)
+    @Column(name = "image_url", length = 1000)
     private String imageUrl;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "initiative")
-    private Set<Comment> comments;
+    // @JsonIgnore
+    // @OneToMany(mappedBy = "initiative")
+    // private Set<Comment> comments;
 
     @NonNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "jonogon_id", referencedColumnName = "id", nullable = false)
-    private Jonogon jonogon;
+    private Jonogon author;
 
-    @JsonIgnore
-    @ManyToMany()
-    @JoinTable(name = "jonogon_appreciated_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
-    private Set<Jonogon> appreciators;
+    // @NonNull
+    // @JsonIgnore
+    // @ManyToMany()
+    // @JoinTable(name = "jonogon_appreciated_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
+    // private Set<Jonogon> appreciators;
 
-    @JsonIgnore
-    @ManyToMany()
-    @JoinTable(name = "jonogon_iAmIn_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
-    private Set<Jonogon> iAmInJonogons;
+    // @JsonIgnore
+    // @ManyToMany()
+    // @JoinTable(name = "jonogon_i_am_in_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
+    // private Set<Jonogon> iAmInJonogons;
 
     @Nonnull
     @Column(name = "location_district")
-    private String location_district;
+    private String locationDistrict;
+
     @Nonnull
     @Column(name = "location_upzilla")
-    private String location_upzilla;
+    private String locationUpzilla;
+
     @Nonnull
     @Column(name = "location_address")
-    private String location_address;
+    private String locationAddress;
 
 }

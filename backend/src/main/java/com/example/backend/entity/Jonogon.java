@@ -15,7 +15,6 @@ import lombok.*;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "jonogon")
-
 public class Jonogon {
 
     @Id
@@ -40,7 +39,7 @@ public class Jonogon {
     private String password;
 
     @Nonnull
-    @Column(name = "imageUrl", length = 1000)
+    @Column(name = "image_url", length = 1000)
     private String imageUrl;
 
     @Nonnull
@@ -48,14 +47,15 @@ public class Jonogon {
     private Set<String> skills;
     
     @JsonIgnore
-    @OneToMany(mappedBy = "jonogon")
+    @OneToMany(mappedBy = "author")
     private List<Initiative> initiatives;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "appreciators")
-    private Set<Initiative> appreciatedInitiatives;
+    // @JsonIgnore
+    // @ManyToMany(mappedBy = "appreciators")
+    // private Set<Initiative> appreciatedInitiatives;
 
-    @ManyToMany(mappedBy = "iAmInJonogons")
-    private Set<Initiative> iAmInitiatives;
+    // @JsonIgnore
+    // @ManyToMany(mappedBy = "iAmInJonogons")
+    // private Set<Initiative> iAmInitiatives;
 
 }

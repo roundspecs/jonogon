@@ -1,9 +1,9 @@
-package com.example.backend.service;
+// package com.example.backend.service;
 
-import org.springframework.stereotype.Service;
+// import org.springframework.stereotype.Service;
 
 
-@Service
-public class CommentService {
+// @Service
+// public class CommentService {
 
-}
+// }
