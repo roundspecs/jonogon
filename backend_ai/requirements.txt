@@ -1,0 +1,6 @@
+fastapi[standard]
+pillow
+torch
+transformers
+langchain
+langchain-ollama
