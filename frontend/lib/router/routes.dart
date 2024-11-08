@@ -10,8 +10,22 @@ final GoRouter router = GoRouter(
         body: Row(
           children: [
             NavigationDrawer(children: [
-              // Image.asset('frontend/assets/images/jonogon_logo.png'),
-              const Image(image: AssetImage('assets/jonogon_logo.png')),
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    Image(
+                      image: AssetImage('assets/logo.png'),
+                      height: 50,
+                    ),
+                    SizedBox(width: 16),
+                    Text(
+                      "Jonogon",
+                      style: TextStyle(fontSize: 30),
+                    ),
+                  ],
+                ),
+              ),
               ListTile(
                 title: const Text('Community'),
                 onTap: () => context.go('/'),
