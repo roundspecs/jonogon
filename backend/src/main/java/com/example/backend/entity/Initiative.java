@@ -1,6 +1,7 @@
 package com.example.backend.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,8 +34,8 @@ public class Initiative {
     @Column(name = "solution", length = 1000)
     private String solution;
    
-    // @OneToMany(mappedBy = "initiative")
-    // private Set<Step> steps;
+    @OneToMany(mappedBy = "initiative")
+    private List<Step> steps;
    
     @Nonnull
     @Column(name = "appricate_count")

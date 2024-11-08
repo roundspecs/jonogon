@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.backend.entity.Initiative;
 import com.example.backend.entity.Jonogon;
+import com.example.backend.entity.Step;
 import com.example.backend.service.InitiativeService;
 import com.example.backend.service.JonogonService;
 
@@ -43,6 +44,14 @@ public class BackendApplication implements CommandLineRunner {
 
 		for (Initiative initiative : initiatives) {
 			initiativeService.save(initiative);
+		}
+
+		Step[] steps = new Step[] {
+			new Step("Step 1", initiatives[0], true),
+		};
+
+		for (Step step : steps) {
+			// TODO: Saimun
 		}
 	}
 
