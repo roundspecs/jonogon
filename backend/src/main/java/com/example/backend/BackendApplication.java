@@ -1,7 +1,6 @@
 package com.example.backend;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
