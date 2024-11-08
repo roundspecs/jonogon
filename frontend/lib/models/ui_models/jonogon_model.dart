@@ -15,8 +15,8 @@ class JonogonModel extends Equatable {
   factory JonogonModel.fromApiModel(JonogonApiModel apiModel) {
     return JonogonModel(
       id: apiModel.id.toString(),
-      username: apiModel.userName,
-      fullName: apiModel.fullName,
+      username: apiModel.username,
+      fullName: apiModel.fullname,
       mobileNumber: apiModel.phoneNumber,
       imageURL: apiModel.imageURL,
     );

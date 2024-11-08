@@ -52,21 +52,4 @@ public class Initiative {
     @ManyToOne(optional = false)
     @JoinColumn(name = "jonogon_id", referencedColumnName = "id", nullable = false)
     private Jonogon jonogon;
-
-    @JsonIgnore
-    @ManyToMany()
-    @JoinTable(name = "jonogon_appreciated_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
-    private Set<Jonogon> appreciators;
-
-    @JsonIgnore
-    @ManyToMany()
-    @JoinTable(name = "jonogon_iAmIn_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
-    private Set<Jonogon> iAmInJonogons;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "initiative")
-    private Set<Comment> comments;
-
-    @OneToMany(mappedBy = "initiative")
-    private Set<Step> steps;
 }

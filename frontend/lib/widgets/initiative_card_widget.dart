@@ -79,7 +79,7 @@ class InitiativeCardWidget extends StatelessWidget {
                       CommunityInitiativeAppreciateToggled(initiativeModel.id),
                     );
               },
-              icon: (initiativeModel.didUserAppreciate
+              icon: (false
                   ? const Icon(Icons.stars_rounded)
                   : const Icon(Icons.star_border_rounded)),
               label: const Text('1k'),
@@ -103,7 +103,7 @@ class InitiativeCardWidget extends StatelessWidget {
                           );
                     },
                     label: const Text("I'm in"),
-                    icon: (initiativeModel.isImIn
+                    icon: (true
                         ? const Icon(Icons.check_circle_rounded)
                         : const Icon(Icons.check_circle_outline)),
                   ),
@@ -131,7 +131,7 @@ class InitiativeCardWidget extends StatelessWidget {
                 ),
               ],
             ),
-            if (initiativeModel.showComment) ...[
+            if (false) ...[
               const SizedBox(height: 16),
               // show comment field
               const Row(

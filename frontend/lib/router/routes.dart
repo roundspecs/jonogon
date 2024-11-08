@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/community/presentation/pages/community_page.dart';
+import 'package:frontend/features/profile/presentation/profile_page.dart';
 import 'package:frontend/features/sign_in/sign_in_page.dart';
 import 'package:frontend/features/sign_up/sign_up.dart';
 import 'package:frontend/features/take_initiative/presentation/pages/take_initiative_page.dart';
@@ -66,7 +67,7 @@ final GoRouter router = GoRouter(
             path: '/jonogon/:id',
             builder: (context, state) {
               final id = state.pathParameters["id"];
-              return Text("Jonogon $id");
+              return ProfilePage(idJ: int.tryParse(id ?? "0") ?? 0);
             }),
         GoRoute(
           path: '/',

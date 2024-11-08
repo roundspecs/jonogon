@@ -58,15 +58,4 @@ public class Jonogon {
   @JsonIgnore
   @OneToMany(mappedBy = "jonogon")
   private List<Initiative> initiatives;
-
-  @JsonIgnore
-  @ManyToMany(mappedBy = "appreciators")
-  private Set<Initiative> appreciatedInitiatives;
-
-  @ManyToMany(mappedBy = "iAmInJonogons")
-  private Set<Initiative> iAmInitiatives;
-
-  @JsonIgnore
-  @OneToMany(mappedBy = "jonogon")
-  private List<Comment> comments;
 }

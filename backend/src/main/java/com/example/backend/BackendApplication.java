@@ -29,7 +29,8 @@ public class BackendApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		Set<String> skills = Set.of("Programming", "Logistics", "Leadership");
 		Jonogon[] jonogons = new Jonogon[] {
-				new Jonogon("saimun", "Saifullah Saimun", "048594584", "password", LocalDate.now(), skills, "images")
+				new Jonogon("saimun", "Saifullah Saimun", "048594584", "password", LocalDate.now(), skills,
+						"https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=2415")
 		};
 
 		for (Jonogon jonogon : jonogons) {
@@ -37,7 +38,7 @@ public class BackendApplication implements CommandLineRunner {
 		}
 
 		Initiative[] initiatives = new Initiative[] {
-				new Initiative("des", "sol", LocalDate.now(), "images", jonogons[0])
+				new Initiative("des", "sol", LocalDate.now(), "https://cdn.pixabay.com/photo/2017/09/08/18/20/garbage-2729608_640.jpg", jonogons[0])
 		};
 
 		for (Initiative initiative : initiatives) {

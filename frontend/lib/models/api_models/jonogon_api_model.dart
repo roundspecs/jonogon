@@ -1,44 +1,42 @@
 class JonogonApiModel {
   const JonogonApiModel({
     required this.id,
-    required this.userName,
-    required this.fullName,
+    required this.username,
+    required this.fullname,
     required this.phoneNumber,
     required this.password,
     required this.imageURL,
     required this.skills,
   });
 
-
   final int id;
-  final String userName;
-  final String fullName; 
+  final String username;
+  final String fullname;
   final String phoneNumber;
   final String password;
   final String imageURL;
-  final List <String> skills;
+  final List<String> skills;
 
   factory JonogonApiModel.fromJson(Map<String, dynamic> json) {
     return JonogonApiModel(
       id: json['id'] as int,
-      userName: json['userName'] as String,
-      fullName: json['fullName'] as String,
+      username: json['username'] as String,
+      fullname: json['fullname'] as String,
       phoneNumber: json['phoneNumber'] as String,
       password: json['password'] as String,
-      imageURL: json['imageURL'] as String,
+      imageURL: json['profilePictureURL'] as String,
       skills: json['skills'].cast<String>(),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'userName': userName,
-      'fullName': fullName,
+      'userName': username,
+      'fullName': fullname,
       'phoneNumber': phoneNumber,
       'password': password,
       'imageURL': imageURL,
       'skills': skills,
     };
   }
-
 }
