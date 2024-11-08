@@ -1,85 +1,115 @@
-import 'package:equatable/equatable.dart';
-import 'package:frontend/models/api_models/jonogon_api_model.dart';
-import 'package:frontend/models/ui_models/jonogon_model.dart';
+import 'dart:convert';
+import 'package:frontend/api_repository/initiative_api.dart';
+import 'package:frontend/models/api_models/initiative_api_model.dart';
+import 'package:frontend/models/ui_models/initiative_model.dart';
+import 'package:http/http.dart' as http;
 
-class InitiativeApiModel extends Equatable {
-  const InitiativeApiModel({
-    required this.id,
-    required this.jonogonId,
-    required this.imageURL,
-    required this.steps,
-    required this.appreciateCount,
-    required this.iAmInCount,
-    required this.description,
-    required this.solution,
-    required this.createdAt,
-    required this.jonogon,
-    required this.commentsCount,
-    required this.locationDistrict,
-    required this.locationUpazilla,
-    required this.locationAddress,
-  });
+class InitiativeApi {
+  static const String baseUrl = 'http://localhost:8080';
 
-  factory InitiativeApiModel.fromJson(Map<String, dynamic> json) {
-    return InitiativeApiModel(
-      id: json['id'] as int,
-      jonogonId: json['jonogonId'] as int,
-      imageURL: json['imageURL'] as String,
-      steps: List<String>.from(json['steps'] as List),
-      appreciateCount: json['appreciateCount'] as int,
-      iAmInCount: json['iAmInCount'] as int,
-      description: json['description'] as String,
-      solution: json['solution'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      jonogon: JonogonModel.fromApiModel(
-        JonogonApiModel.fromJson(json['jonogon'] as Map<String, dynamic>),
-      ),
-      commentsCount: json['commentsCount'] as int,
-      locationDistrict: json['locationDistrict'] as String,
-      locationUpazilla: json['locationUpazilla'] as String,
-      locationAddress: json['locationAddress'] as String,
-    );
+  static Future<List<InitiativeApiModel>> getAllInitiatives() async {
+    final response = await http.get(Uri.parse('$baseUrl/initiative/all'));
+    if (response.statusCode == 200) {
+      final data =
+          (json.decode(response.body) as List).cast<Map<String, dynamic>>();
+      return data.map<InitiativeApiModel>(InitiativeApiModel.fromJson).toList();
+    } else {
+      throw Exception('Failed to load initiatives');
+    }
   }
 
-  // Map<String, String> toJson() {
-  //   return {
-  //     'description': description,
-  //     'solution': solution,
-  //     'createdAt': DateFormat('yyyy-MM-dd').format(createdAt),
-  //   };
-  // }
+  static Future<InitiativeApiModel> getInitiativesById(int id) async {
+    final response = await http.get(Uri.parse('$baseUrl/initiative/$id'));
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body) as Map<String, dynamic>;
+      return InitiativeApiModel.fromJson(data);
+    } else {
+      throw Exception('Failed to load initiative $id');
+    }
+  }
 
-  final int id;
-  final int jonogonId;
-  final String imageURL;
-  final List<String> steps;
-  final int appreciateCount;
-  final int iAmInCount;
-  final String description;
-  final String solution;
-  final DateTime createdAt;
-  final JonogonModel jonogon;
-  final int commentsCount;
-  final String locationDistrict;
-  final String locationUpazilla;
-  final String locationAddress;
+  static Future<int> getCountOfInitiativesById(int id) async {
+    final response = await http
+        .get(Uri.parse('$baseUrl/initiative/$id' '/appreciate/count'));
+    if (response.statusCode == 200) {
+      return int.parse(response.body);
+    } else {
+      throw Exception('Failed to load count of initiative $id');
+    }
+  }
 
-  @override
-  // TODO: implement props
-  List<Object?> get props => [
-        id,
-        jonogonId,
-        imageURL,
-        steps,
-        appreciateCount,
-        iAmInCount,
-        description,
-        solution,
-        createdAt,
-        jonogon,
-        commentsCount,
-        locationDistrict,
-        locationUpazilla,
-        locationAddress,
-      ];
+  static Future<bool> isInitiateAppreciateByJonogon(int idI, int idJ) async {
+    final response = await http
+        .get(Uri.parse('$baseUrl/initiative/$idI' '/appreciate/$idJ'));
+    if (response.statusCode == 200) {
+      return json.decode(response.body).toString().toLowerCase() == 'true';
+    } else {
+      throw Exception(
+        'Failed to check if Initiative $idI is appreciated by Jonogon $idJ',
+      );
+    }
+  }
+
+  static Future <List<String>> getAllCommentsOfInitiativeById (int idI) async {
+    final response = await http.get(Uri.parse('$baseUrl/initiative/$idI/comments'));
+    if (response.statusCode == 200) {
+      final data = (json.decode(response.body) as List).cast<String>();
+      return data;
+    } else {
+      throw Exception('Failed to load comments for initiative $idI');
+    }
+  }
+
+  static Future<void> postAnInitiativeAppreciation(int idI, int idJ) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/initiative/$idI' '/appreciate/$idJ'),
+    );
+    if (response.statusCode != 200) {
+      throw Exception('Failed to post an initiative appreciation');
+    }
+  }
+
+  static Future<void> postInitiativeToAJonogon(
+      int id,
+      InitiativeApiModel initiative,
+    ) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/initiative/jonogon/$id'),
+      body: jsonEncode(InitiativeModel.toJson()),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    if (response.statusCode != 200) {
+      throw Exception('Failed to post an initiative to a jonogon');
+    }
+  }
+
+  static Future<void> postAnInitiative(
+    InitiativeApiModel initiative,
+    int jonogonId,
+  ) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/initiative/jonogon/$jonogonId'),
+      body: jsonEncode(initiative.toJson()),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    if (response.statusCode != 201) {
+      throw Exception('Failed to post an initiative');
+    }
+  }
+
+  static Future<void> postJonogonAppreciatesInitiative(
+    int idI,
+    int idJ,
+  ) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/initiative/$idI' '/appreciate/$idJ'),
+    );
+    if (response.statusCode != 201) {
+      throw Exception('Failed to post jonogon appreciates initiative');
+    }
+  }
 }
