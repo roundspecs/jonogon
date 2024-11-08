@@ -25,9 +25,11 @@ async def caption(file: UploadFile = File(...)):
 
 @app.get("/solution")
 async def solution(description: str, caption: str = None):
-    return solution_service.get_response(description, caption)
+    res = solution_service.get_response(description, caption)
+    return {"solutions": res}
 
 
 @app.get("/steps")
 async def steps(description: str, solution: str, caption: str = None):
-    return steps_service.get_response(description, solution, caption)
+    res = steps_service.get_response(description, solution, caption)
+    return {"steps": res}
