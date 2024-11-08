@@ -86,9 +86,9 @@ class InitiativeCardWidget extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             // Details Text
-            const Text(
-              '''Details laksdjfikas lkajsdfl kjasdlfkj sladkfjas laksdjflkasjdfklskadj alsdkjfl kjasdflaks jdfkl alsdkjf ladk ...''',
-              style: TextStyle(fontSize: 14),
+            Text(
+              initiativeModel.solution,
+              style: const TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 8),
             // Interaction Buttons

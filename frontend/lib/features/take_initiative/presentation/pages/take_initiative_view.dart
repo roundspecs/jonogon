@@ -1,6 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:frontend/api_repository/initiative_api.dart';
+import 'package:frontend/features/sign_in/sign_in_page.dart';
+import 'package:frontend/models/api_models/initiative_api_model.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
@@ -224,7 +228,21 @@ class _SolutionPageState extends State<SolutionPage> {
             },
           ),
           const SizedBox(height: 16),
-          ElevatedButton(onPressed: () {}, child: const Text("Submit")),
+          ElevatedButton(
+              onPressed: () {
+                InitiativeApi.postAnInitiative(
+                  InitiativeApiModel(
+                    imageURL:
+                        "https://cdn.pixabay.com/photo/2017/09/08/18/20/garbage-2729608_640.jpg",
+                    description: widget.description,
+                    solution: widget.solutions[index!],
+                    createdAt: DateTime.now(),
+                  ),
+                  1,
+                );
+                context.go("/");
+              },
+              child: const Text("Submit")),
         ],
       ),
     );

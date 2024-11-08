@@ -13,16 +13,15 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
   CommunityBloc() : super(CommunityLoadingState()) {
     on<CommunitInit>((event, emit) async {
       final initiativeApiModels = await InitiativeApi.getAllInitiatives();
-      print(initiativeApiModels.first.jonogon.username);
       final initiativeModel = initiativeApiModels
           .map((initiativeApiModel) => InitiativeModel(
                 id: initiativeApiModel.id.toString(),
                 author: JonogonModel(
-                  id: initiativeApiModel.jonogon.id.toString(),
-                  username: initiativeApiModel.jonogon.username,
-                  fullName: initiativeApiModel.jonogon.fullName,
-                  mobileNumber: initiativeApiModel.jonogon.mobileNumber,
-                  imageURL: initiativeApiModel.jonogon.imageURL,
+                  id: initiativeApiModel.jonogon!.id.toString(),
+                  username: initiativeApiModel.jonogon!.username,
+                  fullName: initiativeApiModel.jonogon!.fullName,
+                  mobileNumber: initiativeApiModel.jonogon!.mobileNumber,
+                  imageURL: initiativeApiModel.jonogon!.imageURL,
                 ),
                 imageURL: initiativeApiModel.imageURL,
                 createdAt: initiativeApiModel.createdAt,
@@ -32,39 +31,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
           .toList();
       emit(
         CommunityLoadedState(initiativeModels: [
-          ...initiativeModel,
-          InitiativeModel(
-            id: 1.toString(),
-            author: JonogonModel(
-              id: 2.toString(),
-              username: 'Adid',
-              fullName: 'Adid Rahman',
-              mobileNumber: '01222222222',
-              imageURL:
-                  'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?semt=ais_hybrid',
-            ),
-            imageURL:
-                'https://cdn.pixabay.com/photo/2017/09/08/18/20/garbage-2729608_640.jpg',
-            createdAt: DateTime(2021, 10, 10),
-            description: 'Description',
-            solution: 'Solution',
-          ),
-          InitiativeModel(
-            id: 2.toString(),
-            author: JonogonModel(
-              id: 2.toString(),
-              username: 'Zarif',
-              fullName: 'Zarif Muhtasim',
-              mobileNumber: '01222222222',
-              imageURL:
-                  'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?semt=ais_hybrid',
-            ),
-            imageURL:
-                'https://cdn.pixabay.com/photo/2017/09/08/18/20/garbage-2729608_640.jpg',
-            createdAt: DateTime(2021, 10, 10),
-            description: 'Description',
-            solution: 'Solution',
-          ),
+          ...initiativeModel.reversed,
         ]),
       );
     });

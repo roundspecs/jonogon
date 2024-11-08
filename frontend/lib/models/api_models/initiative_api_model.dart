@@ -5,12 +5,12 @@ import 'package:intl/intl.dart';
 
 class InitiativeApiModel extends Equatable {
   const InitiativeApiModel({
-    required this.id,
+    this.id,
     required this.imageURL,
     required this.description,
     required this.solution,
     required this.createdAt,
-    required this.jonogon,
+    this.jonogon,
   });
 
   factory InitiativeApiModel.fromJson(Map<String, dynamic> json) {
@@ -31,16 +31,17 @@ class InitiativeApiModel extends Equatable {
       'description': description,
       'solution': solution,
       'createdAt': DateFormat('yyyy-MM-dd').format(createdAt),
-      'initiativePictureUrl': "https://picsum.photos/200/300",
+      'initiativePictureUrl':
+          "https://cdn.pixabay.com/photo/2017/09/08/18/20/garbage-2729608_640.jpg",
     };
   }
 
-  final int id;
+  final int? id;
   final String imageURL;
   final String description;
   final String solution;
   final DateTime createdAt;
-  final JonogonModel jonogon;
+  final JonogonModel? jonogon;
 
   @override
   List<Object?> get props => [

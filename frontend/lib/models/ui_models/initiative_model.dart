@@ -20,7 +20,7 @@ class InitiativeModel extends Equatable {
       imageURL:
           'https://i0.wp.com/picjumbo.com/wp-content/uploads/pile-of-garbage-in-the-middle-of-the-city-free-photo.jpg?w=2210&quality=70',
       createdAt: model.createdAt,
-      author: model.jonogon,
+      author: model.jonogon!,
       id: model.id.toString(),
       description: model.description,
       solution: model.solution,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/community/presentation/pages/community_page.dart';
+import 'package:frontend/features/initiative%20copy/presentation/pages/initiative_page.dart';
 import 'package:frontend/features/profile/presentation/profile_page.dart';
 import 'package:frontend/features/sign_in/sign_in_page.dart';
 import 'package:frontend/features/sign_up/sign_up.dart';
@@ -43,7 +44,7 @@ final GoRouter router = GoRouter(
                 onTap: () => context.go('/'),
               ),
               ListTile(
-                title: const Text('profile'),
+                title: const Text('Profile'),
                 onTap: () => context.go('/jonogon/1'),
               ),
               ListTile(
@@ -77,7 +78,7 @@ final GoRouter router = GoRouter(
             path: '/initiative/:id',
             builder: (context, state) {
               final id = state.pathParameters["id"];
-              return Text("Initiative $id");
+              return InitiativePage(idI: int.tryParse(id ?? "0") ?? 0);
             }),
         GoRoute(
             path: '/take-initiative',
