@@ -21,17 +21,26 @@ class InitiativeApiModel extends Equatable {
     required this.locationAddress,
   });
 
-  // factory InitiativeApiModel.fromJson(Map<String, dynamic> json) {
-  //   return InitiativeApiModel(
-  //     id: json['id'] as int,
-  //     description: json['description'] as String,
-  //     solution: json['solution'] as String,
-  //     createdAt: DateTime.parse(json['createdAt'] as String),
-  //     jonogon: JonogonModel.fromApiModel(
-  //       JonogonApiModel.fromJson(json['jonogon'] as Map<String, dynamic>),
-  //     ),
-  //   );
-  // }
+  factory InitiativeApiModel.fromJson(Map<String, dynamic> json) {
+    return InitiativeApiModel(
+      id: json['id'] as int,
+      jonogonId: json['jonogonId'] as int,
+      imageURL: json['imageURL'] as String,
+      steps: List<String>.from(json['steps'] as List),
+      appreciateCount: json['appreciateCount'] as int,
+      iAmInCount: json['iAmInCount'] as int,
+      description: json['description'] as String,
+      solution: json['solution'] as String,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      jonogon: JonogonModel.fromApiModel(
+        JonogonApiModel.fromJson(json['jonogon'] as Map<String, dynamic>),
+      ),
+      commentsCount: json['commentsCount'] as int,
+      locationDistrict: json['locationDistrict'] as String,
+      locationUpazilla: json['locationUpazilla'] as String,
+      locationAddress: json['locationAddress'] as String,
+    );
+  }
 
   // Map<String, String> toJson() {
   //   return {
