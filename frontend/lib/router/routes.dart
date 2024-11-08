@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/community/presentation/pages/community_page.dart';
+import 'package:frontend/features/take_initiative/presentation/pages/take_initiative_page.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter router = GoRouter(
@@ -70,7 +71,7 @@ final GoRouter router = GoRouter(
         GoRoute(
             path: '/take-initiative',
             builder: (context, state) {
-              return const Text("take-initiative");
+              return const TakeInitiativePage();
             }),
         GoRoute(
             path: '/about',
