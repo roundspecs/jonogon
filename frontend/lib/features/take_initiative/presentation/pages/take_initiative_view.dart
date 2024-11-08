@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 
 class TakeInitiativeView extends StatefulWidget {
@@ -40,14 +44,62 @@ class _TakeInitiativeViewState extends State<TakeInitiativeView> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  // Handle next button press
+                onPressed: () async {
+                  String? caption;
+                  if (_image != null) {
+                    var request = http.MultipartRequest(
+                      'POST',
+                      Uri.parse("http://localhost:8000/caption"),
+                    );
+                    request.files.add(
+                      http.MultipartFile(
+                        'file',
+                        _image!.readAsBytes().asStream(),
+                        await _image!.length(),
+                        filename: _image!.path.split('/').last,
+                        contentType: MediaType('image', 'jpeg'),
+                      ),
+                    );
+                    var response = await request.send();
+                    if (response.statusCode == 200) {
+                      final body = await response.stream.bytesToString();
+                      caption = jsonDecode(body)['caption'];
+                    }
+                  }
+                  navigateToCaptionPage(caption);
                 },
                 child: const Text('Next'),
               ),
             ],
           ),
         )
+      ],
+    );
+  }
+
+  void navigateToCaptionPage(String? caption) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => CaptionPage(caption: caption),
+    ));
+  }
+}
+
+class CaptionPage extends StatelessWidget {
+  final String? caption;
+  const CaptionPage({super.key, required this.caption});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        if (caption != null) Text('AI generated caption: $caption'),
+        const TextField(
+          decoration: InputDecoration(hintText: "Description"),
+        ),
+        ElevatedButton(
+          onPressed: () {},
+          child: const Text('Submit'),
+        ),
       ],
     );
   }
