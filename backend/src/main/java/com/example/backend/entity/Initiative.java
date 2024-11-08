@@ -32,7 +32,7 @@ public class Initiative {
     private Long id;
 
     @Nonnull
-    @Column(name = "jonogonId")
+    @Column(name = "jonogon_id")
     private Long jonogonId;
 
     @Nonnull
