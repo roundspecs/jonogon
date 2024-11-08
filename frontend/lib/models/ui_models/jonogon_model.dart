@@ -13,6 +13,7 @@ class JonogonModel extends Equatable {
   });
 
   factory JonogonModel.fromApiModel(JonogonApiModel apiModel) {
+
     return JonogonModel(
       id: apiModel.id.toString(),
       username: apiModel.userName,

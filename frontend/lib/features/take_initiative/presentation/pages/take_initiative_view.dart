@@ -49,7 +49,7 @@ class _TakeInitiativeViewState extends State<TakeInitiativeView> {
                   if (_image != null) {
                     var request = http.MultipartRequest(
                       'POST',
-                      Uri.parse("http://localhost:8000/caption"),
+                      Uri.parse("http://192.168.23.28:8000/caption"),
                     );
                     request.files.add(
                       http.MultipartFile(
