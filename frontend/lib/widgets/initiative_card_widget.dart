@@ -32,7 +32,8 @@ class InitiativeCardWidget extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 24,
                     backgroundColor: Colors.grey[300],
-                    backgroundImage: NetworkImage(initiativeModel.author.profilePicUrl),
+                    backgroundImage:
+                        NetworkImage(initiativeModel.author.imageURL),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -112,7 +113,8 @@ class InitiativeCardWidget extends StatelessWidget {
                   child: OutlinedButton.icon(
                     onPressed: () {
                       context.read<CommunityBloc>().add(
-                            CommunityInitiativeCommentToggled(initiativeModel.id),
+                            CommunityInitiativeCommentToggled(
+                                initiativeModel.id),
                           );
                     },
                     label: const Text('Comment'),

@@ -17,3 +17,5 @@ final class CommunityInitiativeCommentToggled extends CommunityEvent {
   CommunityInitiativeCommentToggled(this.postId);
   final String postId;
 }
+
+final class CommunitInit extends CommunityEvent {}

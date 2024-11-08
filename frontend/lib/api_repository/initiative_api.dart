@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:frontend/models/api_models/jonogon_api_model.dart';
 import 'package:frontend/models/ui_models/jonogon_model.dart';
-import 'package:intl/intl.dart';
 
 class InitiativeApiModel extends Equatable {
   const InitiativeApiModel({

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frontend/api/jonogon_api.dart';
 import 'package:frontend/features/community%20copy/bloc/community_bloc.dart';
-import 'package:frontend/frontend.dart';
-import 'package:frontend/widgets/create_post_card.dart';
-import 'package:frontend/widgets/post_card.dart';
+import 'package:frontend/widgets/create_initiative_card_widget.dart';
+import 'package:frontend/widgets/initiative_card_widget.dart';
 import 'package:go_router/go_router.dart';
 
 class CommunityView extends StatelessWidget {
@@ -12,23 +10,35 @@ class CommunityView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final posts = context.select((CommunityBloc bloc) => bloc.state.posts);
+    final blocRuntimeType = context.select((CommunityBloc bloc) => bloc.state);
+    if (blocRuntimeType is CommunityLoadingState) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    final initiativeModels = context.select(
+      (CommunityBloc bloc) =>
+          (bloc.state as CommunityLoadedState).initiativeModels,
+    );
     return Scaffold(
       body: ListView(
         children: [
-          CreatePostCard(
+          CreateInitiativeCardWidget(
             onTap: () {
               context.go('/take-initiative');
             },
           ),
-          for (final post in posts) PostCard(post: post),
+          for (final initiativeModel in initiativeModels)
+            InitiativeCardWidget(
+              initiativeModel: initiativeModel,
+            ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          print(
-            await JonogonApi.findJonogonById(1),
-          );
+          // print(
+          //   await JonogonApi.findJonogonById(1),
+          // );
         },
         child: const Icon(Icons.add),
       ),

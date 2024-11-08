@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/features/community%20copy/presentation/pages/community_page.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter router = GoRouter(
@@ -14,16 +15,21 @@ final GoRouter router = GoRouter(
                 onTap: () => context.go('/'),
               )
             ]),
-            child,
+            Container(
+              constraints: BoxConstraints.loose(const Size.fromWidth(500)),
+              child: child,
+            ),
           ],
         ),
       ),
       routes: <RouteBase>[
-        GoRoute(path: '/jonogon/:id', builder: (context, state) {
-          final id = state.pathParameters["id"];
-          return Text("Jonogon $id");
-        }),
-        GoRoute(path: '/', builder: (context, state) => const Text("Home")),
+        GoRoute(
+            path: '/jonogon/:id',
+            builder: (context, state) {
+              final id = state.pathParameters["id"];
+              return Text("Jonogon $id");
+            }),
+        GoRoute(path: '/', builder: (context, state) => const CommunityPage()),
       ],
     )
   ],
