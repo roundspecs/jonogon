@@ -3,12 +3,19 @@ package com.example.backend.entity;
 import java.time.LocalDate;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.*;
 
@@ -37,13 +44,12 @@ public class Initiative {
     private LocalDate createdAt;
 
     @Nonnull
-    @Column(name = "solution")
+    @Column(name = "solution", length = 1000)
     private String solution;
-
-    @Nonnull
-    @Column(name = "steps")
+   
+    @OneToMany(mappedBy = "initiative")
     private Set<Step> steps;
-
+   
     @Nonnull
     @Column(name = "appricateCount")
     private Long appriciateCount;
@@ -57,14 +63,27 @@ public class Initiative {
     private Long commentCount;
 
     @Nonnull
-    @Column(name = "imageUrl", length = 1000)
+    @Column(name = "imageURL", length = 1000)
     private String imageUrl;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "initiative")
+    private Set<Comment> comments;
+
+    @NonNull
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "jonogon_id", referencedColumnName = "id", nullable = false)
+    private Jonogon jonogon;
+
+    @JsonIgnore
+    @ManyToMany()
+    @JoinTable(name = "jonogon_appreciated_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
     private Set<Jonogon> appreciators;
 
+    @JsonIgnore
+    @ManyToMany()
+    @JoinTable(name = "jonogon_iAmIn_initiatives", joinColumns = @JoinColumn(name = "initiative_id"), inverseJoinColumns = @JoinColumn(name = "jonogon_id"))
     private Set<Jonogon> iAmInJonogons;
-
-    private Set<Comment> comments;
 
     @Nonnull
     @Column(name = "location_district")
