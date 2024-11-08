@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frontend/features/community%20copy/bloc/community_bloc.dart';
+import 'package:frontend/features/community/bloc/community_bloc.dart';
 import 'package:frontend/widgets/create_initiative_card_widget.dart';
 import 'package:frontend/widgets/initiative_card_widget.dart';
 import 'package:go_router/go_router.dart';

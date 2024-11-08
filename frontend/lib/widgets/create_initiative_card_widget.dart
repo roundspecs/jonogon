@@ -21,7 +21,7 @@ class CreateInitiativeCardWidget extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  'Create a new post',
+                  'Have an initiative to share?',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.grey[800],

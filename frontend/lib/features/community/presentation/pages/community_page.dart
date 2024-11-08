@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frontend/features/community%20copy/bloc/community_bloc.dart';
-import 'package:frontend/features/community%20copy/presentation/pages/community_view.dart';
+import 'package:frontend/features/community/bloc/community_bloc.dart';
+import 'package:frontend/features/community/presentation/pages/community_view.dart';
 
 class CommunityPage extends StatelessWidget {
   const CommunityPage({super.key});
