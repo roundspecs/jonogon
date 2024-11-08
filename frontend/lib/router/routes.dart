@@ -13,7 +13,19 @@ final GoRouter router = GoRouter(
               ListTile(
                 title: const Text('Community'),
                 onTap: () => context.go('/'),
-              )
+              ),
+              ListTile(
+                title: const Text('profile'),
+                onTap: () => context.go('/jonogon/1'),
+              ),
+              ListTile(
+                title: const Text('About Us'),
+                onTap: () => context.go('/about'),
+              ),
+              ListTile(
+                title: const Text('Settings'),
+                onTap: () => context.go('/settings'),
+              ),
             ]),
             Container(
               constraints: BoxConstraints.loose(const Size.fromWidth(500)),
@@ -29,7 +41,10 @@ final GoRouter router = GoRouter(
               final id = state.pathParameters["id"];
               return Text("Jonogon $id");
             }),
-        GoRoute(path: '/', builder: (context, state) => const CommunityPage(),),
+        GoRoute(
+          path: '/',
+          builder: (context, state) => const CommunityPage(),
+        ),
         GoRoute(
             path: '/initiative/:id',
             builder: (context, state) {
