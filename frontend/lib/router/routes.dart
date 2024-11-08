@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/community/presentation/pages/community_page.dart';
-import 'package:frontend/features/take_initiative/presentation/pages/take_initiative_page.dart';
+import 'package:frontend/features/sign_in/sign_in_page.dart';
 import 'package:frontend/features/sign_up/sign_up.dart';
+import 'package:frontend/features/take_initiative/presentation/pages/take_initiative_page.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: '/',
   routes: <RouteBase>[
+    GoRoute(
+      path: '/login',
+      pageBuilder: (context, state) => const MaterialPage(child: SignInPage()),
+    ),
+    GoRoute(
+      path: '/signup',
+      pageBuilder: (context, state) => const MaterialPage(child: SignUpPage()),
+    ),
     ShellRoute(
       builder: (context, state, child) => Scaffold(
         body: Row(
@@ -83,16 +92,6 @@ final GoRouter router = GoRouter(
             path: '/settings',
             builder: (context, state) {
               return const Text("settings");
-            }),
-        GoRoute(
-            path: '/login',
-            builder: (context, state) {
-              return const Text("login");
-            }),
-        GoRoute(
-            path: '/signup',
-            builder: (context, state) {
-              return const Text("signup',");
             }),
         GoRoute(
             path: '/welcome',
